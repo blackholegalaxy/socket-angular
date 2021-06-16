@@ -1,0 +1,12 @@
+<button (click)="sendMarco()">Envoyer un "Marco"!</button>
+
+<div class="chat">
+  <div class="content">
+    <div class="message" *ngFor="let chatMessage of chatMessages"> {{ chatMessage }} </div>
+  </div>
+
+  <div class="form">
+      <input class="chat-messages-create-input" type="text" [(ngModel)]="message">
+     <button  class="chat-messages-create-button" (click)="sendMessage()">Envoyer</button>
+  </div>
+</div>

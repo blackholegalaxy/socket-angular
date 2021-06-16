@@ -17,24 +17,36 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  const clientId = socket.client.id;
+
+  // On a recu une demande de connexion d'un utilisateur
+  // Ici on pourrait utiliser une logique d'auth ou autre pour "identifier" le stream et le lier a un
+  // user en particulier et garder une collection de sockets associees a leurs users
+  console.log('a user is connected', socket.client.id);
 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log('user is disconnected');
   });
 
-  socket.on('my message', (msg) => {
-    console.log('message: ' + msg);
-    io.emit('my broadcast', `server received: ${msg}`);
+  // CHANNEL :: CHAT
+  socket.on('chat', (msg) => {
+    console.log(`message sur le chat de ${clientId}: ${msg}`);
+
+    io.emit('chat-server', msg);
   });
 
+  // CHANNEL :: MARCO
   socket.on('marco', (msg) => {
-    console.log('marco');
-    io.emit('marco', `polo`);
+    console.log(`Marco! from frontend, let's play`);
+    io.emit('marco', `Polo !`);
   });
 
+  // CHANNEL :: PING
   setInterval(() => {
-    io.emit('ping', { type: 'ping', payload: Math.random().toString() });
+    io.emit('ping', { 
+      type: 'ping',
+      payload: Math.random().toString()
+    });
   }, 10000);
 });
 

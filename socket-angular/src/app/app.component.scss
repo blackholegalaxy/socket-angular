@@ -1,0 +1,26 @@
+.chat {
+  width: 50%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+
+  .content {
+    background-color: lightgrey;
+    height: 100%;
+    overflow: hidden;
+
+    .message {
+      width: 90%;
+      margin: .5rem;
+      background-color: rgb(79, 208, 251);
+      padding: 1rem;
+      color: black;
+    }
+  }
+
+  .form {
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+}
